@@ -25,7 +25,6 @@ function App({ domElement }) {
     const eventType = domElement.getAttribute("data-event-type");
     const saveEvent = domElement.getAttribute("data-save-event");
     const profileId = domElement.getAttribute("data-profile-id");
-    const ipAddress = domElement.getAttribute("data-ip-address");
 
 
     const sendEvent = async (answer) => {
@@ -41,9 +40,6 @@ function App({ domElement }) {
                 },
                 "session": {
                     "id": sessionId
-                },
-                "metadata": {
-                    "ip": ipAddress
                 },
                 "profile": {
                     "id": profileId
@@ -73,6 +69,9 @@ function App({ domElement }) {
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
+            setOpen(false);
+        }
+        else if (reason === "timeout") {
             setOpen(false);
         }
     };
