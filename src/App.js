@@ -76,55 +76,76 @@ function App({ domElement }) {
         }
     };
 
-    return <Snackbar
-        anchorOrigin={{ vertical: posVertical, horizontal: posHorizontal }}
-        open={open}
-        onClose={handleClose}
-        autoHideDuration={popupLifetime}
-    >
-        <SnackbarContent
-            style={{
-                backgroundColor: theme === "dark" ? "#343434" : "#ffffff",
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center"
-            }}
-            message={
-                <>
-                    <Box
-                        sx={{
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "center",
-                            alignItems: "center"
-                        }}
-                    >
-                        <Box sx={{ color: theme === "dark" ? "#ffffff" : "#343434" }}>
-                            <Typography variant="h5">{popupTitle}</Typography>
-                        </Box>
-                        <Box sx={{ color: theme === "dark" ? "#ffffff" : "#343434" }}>
-                            <p>{content}</p>
-                        </Box>
-                        <Box
-                            sx={{
-                                alignSelf: "center",
-                                margin: "10px",
-                                display: "flex",
-                                flexDirection: "row",
-                                gap: "20px",
-                                color: theme === "dark" ? "#ffffff" : "#343434"
-                            }}
-                        >
-                            <Button variant="outlined" onClick={() => sendEvent(leftBtnText)}
-                                color="inherit">{leftBtnText}</Button>
-                            <Button variant="outlined" onClick={() => sendEvent(rightBtnText)}
-                                color="inherit">{rightBtnText}</Button>
-                        </Box>
-                    </Box>
-                </>
+    return <>
+        <style>{`
+            .QuestionSnackbar .QuestionSnackbarContent {
+                background-color: ${theme === "dark" ? "#343434" : "#ffffff"};
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
             }
-        />
-    </Snackbar>;
+            .QuestionSnackbar .QuestionSnackbarContent .QuestionSnackbarContentMessage {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            .QuestionSnackbar .QuestionSnackbarContent .QuestionSnackbarContentMessage .QuestionPopupTitleBox {
+                color: ${theme === "dark" ? "#ffffff" : "#343434"};
+            }
+            .QuestionSnackbar .QuestionSnackbarContent .QuestionSnackbarContentMessage .QuestionPopupTitleBox Typography {
+                all: inherit;
+            }
+            .QuestionSnackbar .QuestionSnackbarContent .QuestionSnackbarContentMessage .QuestionPopupMessageBox {
+                color: ${theme === "dark" ? "#ffffff" : "#343434"};
+            }
+            .QuestionSnackbar .QuestionSnackbarContent .QuestionSnackbarContentMessage .QuestionPopupMessageBox p {
+                all: inherit;
+                margin: 10px;
+            }
+            .QuestionSnackbar .QuestionSnackbarContent .QuestionSnackbarContentMessage .QuestionPopupButtonsBox {
+                align-self: center;
+                margin: 10px;
+                display: flex;
+                flex-direction: row;
+                gap: 20px;
+                color: ${theme === "dark" ? "#ffffff" : "#343434"};
+            }
+            .QuestionSnackbar .QuestionSnackbarContent .QuestionSnackbarContentMessage .QuestionPopupButtonsBox .QuestionPopupButton {
+                background-color: rgba(0, 0, 0, 0);
+                color: inherit;
+                border-color: inherit;
+            }
+        `}</style>
+        <Snackbar
+            className="QuestionSnackbar"
+            anchorOrigin={{ vertical: posVertical, horizontal: posHorizontal }}
+            open={open}
+            onClose={handleClose}
+            autoHideDuration={popupLifetime}
+        >
+            <SnackbarContent
+                className="QuestionSnackbarContent"
+                message={
+                    <>
+                        <Box className="QuestionSnackbarContentMessage">
+                            <Box className="QuestionPopupTitleBox">
+                                <Typography variant="h5">{popupTitle}</Typography>
+                            </Box>
+                            <Box className="QuestionPopupMessageBox">
+                                <p>{content}</p>
+                            </Box>
+                            <Box className="QuestionPopupButtonsBox">
+                                <Button className="QuestionPopupButton" variant="outlined" onClick={() => sendEvent(leftBtnText)}>{leftBtnText}</Button>
+                                <Button className="QuestionPopupButton" variant="outlined" onClick={() => sendEvent(rightBtnText)}>{rightBtnText}</Button>
+                            </Box>
+                        </Box>
+                    </>
+                }
+            />
+        </Snackbar>
+    </>
+    ;
 
 }
 
